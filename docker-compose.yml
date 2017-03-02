@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: mix phoenix.server
+    ports:
+      - '4000:4000'
+    links:
+      - db
+    volumes:
+      - .:/application
+
+    env_file: .env.web
+
+  db:
+    image: postgres:9.6-alpine
+    ports:
+      - "5432:5432"
+    env_file: .env.db
