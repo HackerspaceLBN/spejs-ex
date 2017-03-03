@@ -1,4 +1,4 @@
-defmodule Pejs.Web.ErrorHelpers do
+defmodule Spejs.Web.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -32,9 +32,9 @@ defmodule Pejs.Web.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(Pejs.Web.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(Spejs.Web.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(Pejs.Web.Gettext, "errors", msg, opts)
+      Gettext.dgettext(Spejs.Web.Gettext, "errors", msg, opts)
     end
   end
 end

@@ -1,5 +1,5 @@
-defmodule Pejs.Web.Router do
-  use Pejs.Web, :router
+defmodule Spejs.Web.Router do
+  use Spejs.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,14 +13,14 @@ defmodule Pejs.Web.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Pejs.Web do
+  scope "/", Spejs.Web do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Pejs.Web do
+  # scope "/api", Spejs.Web do
   #   pipe_through :api
   # end
 end

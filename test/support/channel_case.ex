@@ -1,4 +1,4 @@
-defmodule Pejs.Web.ChannelCase do
+defmodule Spejs.Web.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule Pejs.Web.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint Pejs.Web.Endpoint
+      @endpoint Spejs.Web.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Pejs.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spejs.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Pejs.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Spejs.Repo, {:shared, self()})
     end
     :ok
   end

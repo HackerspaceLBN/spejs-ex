@@ -1,4 +1,4 @@
-# Pejs
+# Spejs
 
 To start your Phoenix server:
 

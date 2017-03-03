@@ -1,5 +1,5 @@
-defmodule Pejs.Web.ErrorView do
-  use Pejs.Web, :view
+defmodule Spejs.Web.ErrorView do
+  use Spejs.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found"

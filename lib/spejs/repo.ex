@@ -1,5 +1,5 @@
-defmodule Pejs.Repo do
-  use Ecto.Repo, otp_app: :pejs
+defmodule Spejs.Repo do
+  use Ecto.Repo, otp_app: :spejs
 
   @doc """
   Dynamically loads the repository url from the

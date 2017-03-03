@@ -1,4 +1,4 @@
-defmodule Pejs.DataCase do
+defmodule Spejs.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule Pejs.DataCase do
 
   using do
     quote do
-      alias Pejs.Repo
+      alias Spejs.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Pejs.DataCase
+      import Spejs.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Pejs.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spejs.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Pejs.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Spejs.Repo, {:shared, self()})
     end
 
     :ok

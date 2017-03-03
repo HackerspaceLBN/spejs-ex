@@ -1,3 +1,3 @@
-defmodule Pejs.Web.PageViewTest do
-  use Pejs.Web.ConnCase, async: true
+defmodule Spejs.Web.PageViewTest do
+  use Spejs.Web.ConnCase, async: true
 end

@@ -21,10 +21,14 @@ WORKDIR /application
 COPY mix.* /application/
 RUN mix deps.get
 
-COPY package.json /application
-RUN npm install && \
+
+COPY assets/package.json /application/assets/package.json
+RUN cd assets && \
+    npm install --loglevel error && \
+    cd .. && \
     mix deps.compile
 
+WORKDIR /application
 ADD . /application
 
 RUN mix compile

@@ -1,5 +1,5 @@
-defmodule Pejs.Web.PageController do
-  use Pejs.Web, :controller
+defmodule Spejs.Web.PageController do
+  use Spejs.Web, :controller
 
   def index(conn, _params) do
     render conn, "index.html"
