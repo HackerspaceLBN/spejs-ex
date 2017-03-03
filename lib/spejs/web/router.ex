@@ -1,5 +1,7 @@
 defmodule Spejs.Web.Router do
   use Spejs.Web, :router
+  use Plug.ErrorHandler
+  use Sentry.Plug
 
   pipeline :browser do
     plug :accepts, ["html"]
