@@ -17,3 +17,8 @@ config :spejs, Spejs.Repo,
   database: "spejs_test",
   hostname: "db",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :sentry,
+  tags: %{
+    env: "testing"
+  }

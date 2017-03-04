@@ -29,12 +29,9 @@ config :spejs, Spejs.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 config :sentry,
-  dsn: System.get_env("SENTRY_DSN"),
-  environment_name: :prod,
   tags: %{
     env: "production"
-  },
-  included_environments: [:prod]
+  }
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.

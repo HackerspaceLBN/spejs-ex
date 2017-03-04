@@ -56,3 +56,8 @@ config :spejs, Spejs.Repo,
   database: "spejs_dev",
   hostname: "db",
   pool_size: 10
+
+config :sentry,
+  tags: %{
+    env: "development"
+  }
