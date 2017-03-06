@@ -14,7 +14,7 @@
 
   <li>
     <strong>User:</strong>
-    <%= @device.user.name %>
+    <%= if @device.user do @device.user.name end %>
   </li>
 
 </ul>
