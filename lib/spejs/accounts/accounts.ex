@@ -209,7 +209,7 @@ defmodule Spejs.Accounts do
   defp device_changeset(%Device{} = device, attrs) do
     device
     |> cast(attrs, [:name, :identifier, :user_id])
-    |> validate_required([:name, :identifier])
+    |> validate_required([:identifier])
     |> unique_constraint(:identifier)
   end
 end
