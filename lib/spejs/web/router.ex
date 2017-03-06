@@ -20,10 +20,11 @@ defmodule Spejs.Web.Router do
 
     get "/", PageController, :index
     resources "/users", UserController
+    resources "/devices", DeviceController
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Spejs.Web do
-  #   pipe_through :api
-  # end
+  scope "/api", Spejs.Web do
+    pipe_through :api
+  end
 end

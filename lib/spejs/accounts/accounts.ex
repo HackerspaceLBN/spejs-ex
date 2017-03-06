@@ -6,7 +6,7 @@ defmodule Spejs.Accounts do
   import Ecto.{Query, Changeset}, warn: false
   alias Spejs.Repo
 
-  alias Spejs.Accounts.User
+  alias Spejs.Accounts.{User, Device}
 
   @doc """
   Returns the list of users.
@@ -106,5 +106,110 @@ defmodule Spejs.Accounts do
     user
     |> cast(attrs, [:name, :nickname, :email])
     |> validate_required([:name, :nickname, :email])
+  end
+
+  @doc """
+  Returns the list of devices.
+
+  ## Examples
+
+      iex> list_devices()
+      [%Device{}, ...]
+
+  """
+  def list_devices do
+    Repo.all(Device)
+      |> Repo.preload(:user)
+  end
+
+  @doc """
+  Gets a single device.
+
+  Raises `Ecto.NoResultsError` if the Device does not exist.
+
+  ## Examples
+
+      iex> get_device!(123)
+      %Device{}
+
+      iex> get_device!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_device!(id) do
+    Repo.get!(Device, id)
+      |> Repo.preload(:user)
+  end
+
+  @doc """
+  Creates a device.
+
+  ## Examples
+
+      iex> create_device(device, %{field: value})
+      {:ok, %Device{}}
+
+      iex> create_device(device, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_device(attrs \\ %{}) do
+    %Device{}
+    |> device_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a device.
+
+  ## Examples
+
+      iex> update_device(device, %{field: new_value})
+      {:ok, %Device{}}
+
+      iex> update_device(device, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_device(%Device{} = device, attrs) do
+    device
+    |> device_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Device.
+
+  ## Examples
+
+      iex> delete_device(device)
+      {:ok, %Device{}}
+
+      iex> delete_device(device)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_device(%Device{} = device) do
+    Repo.delete(device)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking device changes.
+
+  ## Examples
+
+      iex> change_device(device)
+      %Ecto.Changeset{source: %Device{}}
+
+  """
+  def change_device(%Device{} = device) do
+    device_changeset(device, %{})
+  end
+
+  defp device_changeset(%Device{} = device, attrs) do
+    device
+    |> cast(attrs, [:name, :identifier, :user_id])
+    |> validate_required([:name, :identifier])
+    |> unique_constraint(:identifier)
   end
 end
