@@ -13,12 +13,13 @@ defmodule Spejs.Api.Interactions do
       |> Enum.map(&(process_device(&1)))
   end
 
-  defp update_params(params) do
+  defp update_params(params) when params != %{} do
     with device_params <- map_keys_to_atoms(params),
       do: %{device_params | flag: elem(Code.eval_string(device_params.flag), 0)}
   end
+  defp update_params(params), do: params
 
-  defp process_device(device_data) do
+  defp process_device(device_data) when device_data != %{} do
     case Accounts.get_device_by(device_data) do
       nil ->
         case Accounts.create_device(device_data) do
@@ -32,6 +33,7 @@ defmodule Spejs.Api.Interactions do
         end
     end
   end
+  defp process_device(device_data), do: %Device{}
 
   def map_keys_to_atoms(map) do
     for {key, val} <- map, into: %{}, do: {String.to_atom(key), val}
