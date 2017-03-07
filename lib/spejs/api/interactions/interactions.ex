@@ -15,7 +15,7 @@ defmodule Spejs.Api.Interactions do
 
   defp update_params(params) when params != %{} do
     with device_params <- map_keys_to_atoms(params),
-      do: %{device_params | flag: elem(Code.eval_string(device_params.flag), 0)}
+      do: %{device_params | flag: parse_integer(device_params.flag)}
   end
   defp update_params(params), do: params
 
@@ -37,5 +37,14 @@ defmodule Spejs.Api.Interactions do
 
   def map_keys_to_atoms(map) do
     for {key, val} <- map, into: %{}, do: {String.to_atom(key), val}
+  end
+
+  def parse_integer("0x" <> string) do
+    {val, ""} = case string do
+      "0x" <> hex_string -> Integer.parse(hex_string)
+      other -> Integer.parse(other)
+    end
+
+    val
   end
 end
