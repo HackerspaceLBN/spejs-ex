@@ -13,6 +13,11 @@
   </li>
 
   <li>
+    <strong>Flag:</strong>
+    <%= @device.flag %>
+  </li>
+
+  <li>
     <strong>IP:</strong>
     <%= @device.ip %>
   </li>

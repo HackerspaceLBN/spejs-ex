@@ -4,10 +4,10 @@ defmodule Spejs.Accounts.Device do
   schema "accounts_devices" do
     field :name, :string
     field :mac, :string
-    belongs_to :user, Spejs.Accounts.User
-
-    field :ip, :string, virtual: true
+    field :ip, :string
     field :flag, :integer
+
+    belongs_to :user, Spejs.Accounts.User
 
     timestamps()
   end

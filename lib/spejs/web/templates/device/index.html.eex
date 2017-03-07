@@ -5,8 +5,9 @@
     <tr>
       <th>Name</th>
       <th>Identifier</th>
+      <th>IP</th>
+      <th>Active</th>
       <th>User</th>
-      <th>Flag</th>
 
       <th></th>
     </tr>
@@ -16,8 +17,9 @@
     <tr>
       <td><%= device.name || "" %></td>
       <td><%= device.mac || "" %></td>
-      <td><%= if device.user do device.user.name end%></td>
+      <td><%= device.ip || "" %></td>
       <td><%= device.flag || ""%></td>
+      <td><%= if device.user do device.user.name end%></td>
 
       <td class="text-right">
         <span><%= link "Show", to: device_path(@conn, :show, device), class: "btn btn-default btn-xs" %></span>

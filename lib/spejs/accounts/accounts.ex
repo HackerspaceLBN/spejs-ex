@@ -212,7 +212,7 @@ defmodule Spejs.Accounts do
 
   defp device_changeset(%Device{} = device, attrs) do
     device
-    |> cast(attrs, [:name, :mac, :user_id, :flag])
+    |> cast(attrs, [:name, :mac, :user_id, :flag, :ip])
     |> validate_required([:mac])
     |> unique_constraint(:mac)
   end
