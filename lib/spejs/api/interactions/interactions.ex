@@ -9,7 +9,7 @@ defmodule Spejs.Api.Interactions do
     %{
       guests: Enum.filter(devices, fn(device) -> is_nil(device.user_id) end)
         |> Enum.count,
-      active: Enum.filter(devices, fn(device) -> not is_nil(device.user_id) end)
+      active: Enum.filter(devices, fn(device) -> not is_nil(device.user_id) and device.user.type == "user" end)
         |> Enum.map(fn(device) -> %{nickname: device.user.nickname, name: device.user.name} end)
         |> Enum.uniq_by(fn (nickname) -> nickname end)
     }

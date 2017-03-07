@@ -104,8 +104,8 @@ defmodule Spejs.Accounts do
 
   defp user_changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:name, :nickname, :email])
-    |> validate_required([:name, :nickname, :email])
+    |> cast(attrs, [:name, :nickname, :email, :type])
+    |> validate_required([:name, :nickname, :email, :type])
   end
 
   @doc """

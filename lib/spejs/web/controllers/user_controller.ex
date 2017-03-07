@@ -10,7 +10,7 @@ defmodule Spejs.Web.UserController do
 
   def new(conn, _params) do
     changeset = Accounts.change_user(%Spejs.Accounts.User{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, types: Spejs.Accounts.User.user_types())
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -32,7 +32,7 @@ defmodule Spejs.Web.UserController do
   def edit(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
     changeset = Accounts.change_user(user)
-    render(conn, "edit.html", user: user, changeset: changeset)
+    render(conn, "edit.html", user: user, changeset: changeset, types: Spejs.Accounts.User.user_types())
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
