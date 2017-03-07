@@ -40,10 +40,14 @@ defmodule Spejs.Api.Interactions do
           {:error, _} -> %Device{}
         end
       device ->
-        case Accounts.update_device(device, device_data) do
-          {:ok, device} -> device
-          {:error, _} -> %Device{}
+        if device.flag !== device_data.flag do
+          case Accounts.update_device(device, device_data) do
+            {:ok, device} -> device
+            {:error, _} -> %Device{}
+          end
         end
+        
+        device
     end
   end
   defp process_device(_device_data), do: %Device{}
