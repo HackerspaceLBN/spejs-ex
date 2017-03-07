@@ -24,16 +24,16 @@ defmodule Spejs.Api.Interactions do
       nil ->
         case Accounts.create_device(device_data) do
           {:ok, device} -> device
-          {:error, message} -> %Device{}
+          {:error, _} -> %Device{}
         end
       device ->
         case Accounts.update_device(device, device_data) do
           {:ok, device} -> device
-          {:error, changeset} -> %Device{}
+          {:error, _} -> %Device{}
         end
     end
   end
-  defp process_device(device_data), do: %Device{}
+  defp process_device(_device_data), do: %Device{}
 
   def map_keys_to_atoms(map) do
     for {key, val} <- map, into: %{}, do: {String.to_atom(key), val}
