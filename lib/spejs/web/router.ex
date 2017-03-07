@@ -28,5 +28,6 @@ defmodule Spejs.Web.Router do
   scope "/api", Spejs.Web do
     pipe_through :api
     post "/interactions/devices", InteractionsController, :devices
+    get "/at_hackerspace", InteractionsController, :at_hackerspace
   end
 end

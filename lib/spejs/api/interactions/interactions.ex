@@ -2,6 +2,18 @@ defmodule Spejs.Api.Interactions do
   alias Spejs.Accounts
   alias Spejs.Accounts.Device
 
+  def at_hackerspace do
+    devices = Accounts.get_device_by(%{flag: 2})
+
+    %{
+      guests: Enum.filter(devices, fn(device) -> is_nil(device.user_id) end)
+        |> Enum.count,
+      active: Enum.filter(devices, fn(device) -> not is_nil(device.user_id) end)
+        |> Enum.map(fn(device) -> %{nickname: device.user.nickname} end)
+        |> Enum.uniq_by(fn (nickname) -> nickname end) 
+    }
+  end
+
   def update_devices(data) do
      with status <- process_devices(data),
       do: {:ok, status}

@@ -10,4 +10,11 @@ defmodule Spejs.Web.InteractionsController do
       {status, _} -> json(conn, status)
     end
   end
+
+  def at_hackerspace(conn, _params) do
+    case Interactions.at_hackerspace |> JSON.encode do
+      {:ok, response} -> json(conn, response)
+      {:error, message} -> json(conn, message)
+    end
+  end
 end

@@ -145,6 +145,11 @@ defmodule Spejs.Accounts do
     Repo.get_by(Device, mac: mac)
   end
 
+  def get_device_by(%{flag: flag}) do
+    Repo.all(Device, flag: flag)
+      |> Repo.preload(:user)
+  end
+
   @doc """
   Creates a device.
 
