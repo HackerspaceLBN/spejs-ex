@@ -12,6 +12,7 @@ defmodule Spejs.Web.Router do
   end
 
   pipeline :api do
+    plug Corsica, origins: "http://hackerspace-lbn.pl", allow_headers: ["accept", "content-type"]
     plug :accepts, ["json"]
   end
 

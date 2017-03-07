@@ -18,7 +18,7 @@ defmodule Spejs.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Spejs.Application, []},
-     extra_applications: [:logger]]
+     extra_applications: [:corsica, :logger]]
   end
 
   # Specifies which paths to compile per environment.
@@ -29,7 +29,8 @@ defmodule Spejs.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.3.0-rc"},
+    [{:corsica, "~> 0.5"},
+     {:phoenix, "~> 1.3.0-rc"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.2"},
      {:postgrex, ">= 0.0.0"},
