@@ -10,12 +10,4 @@ defmodule Spejs.Web.InteractionsController do
       {status, _} -> json(conn, status)
     end
   end
-
-  def device_join(conn, _params) do
-      render "404.html", _params
-  end
-
-  def device_leave(conn, _params) do
-    render "404.html", _params
-  end
 end
