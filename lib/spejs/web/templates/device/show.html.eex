@@ -8,8 +8,13 @@
   </li>
 
   <li>
-    <strong>Identifier:</strong>
-    <%= @device.identifier %>
+    <strong>Mac:</strong>
+    <%= @device.mac %>
+  </li>
+
+  <li>
+    <strong>IP:</strong>
+    <%= @device.ip %>
   </li>
 
   <li>

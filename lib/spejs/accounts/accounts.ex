@@ -141,6 +141,10 @@ defmodule Spejs.Accounts do
       |> Repo.preload(:user)
   end
 
+  def get_device_by(%{mac: mac}) do
+    Repo.get_by(Device, mac: mac)
+  end
+
   @doc """
   Creates a device.
 
@@ -208,8 +212,8 @@ defmodule Spejs.Accounts do
 
   defp device_changeset(%Device{} = device, attrs) do
     device
-    |> cast(attrs, [:name, :identifier, :user_id])
-    |> validate_required([:identifier])
-    |> unique_constraint(:identifier)
+    |> cast(attrs, [:name, :mac, :user_id, :flag])
+    |> validate_required([:mac])
+    |> unique_constraint(:mac)
   end
 end

@@ -6,6 +6,7 @@
       <th>Name</th>
       <th>Identifier</th>
       <th>User</th>
+      <th>Flag</th>
 
       <th></th>
     </tr>
@@ -14,8 +15,9 @@
 <%= for device <- @devices do %>
     <tr>
       <td><%= device.name || "" %></td>
-      <td><%= device.identifier || "" %></td>
+      <td><%= device.mac || "" %></td>
       <td><%= if device.user do device.user.name end%></td>
+      <td><%= device.flag || ""%></td>
 
       <td class="text-right">
         <span><%= link "Show", to: device_path(@conn, :show, device), class: "btn btn-default btn-xs" %></span>
