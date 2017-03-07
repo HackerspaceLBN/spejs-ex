@@ -5,7 +5,7 @@ defmodule Spejs.Accounts.User do
     field :name, :string
     field :nickname, :string
     field :email, :string
-    has_many :devices, Accounts.Device, on_delete: :nilify_all
+    # has_many :devices, Accounts.Device
 
     timestamps()
   end
