@@ -1,5 +1,5 @@
 defmodule Spejs.Accounts.Device do
-  use Ecto.Schema
+  use Spejs.Web, :model
 
   schema "accounts_devices" do
     field :name, :string

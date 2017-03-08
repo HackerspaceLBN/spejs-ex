@@ -155,6 +155,11 @@ defmodule Spejs.Accounts do
       |> Repo.preload(:user)
   end
 
+  def list_devices_by(%{user_id: user_id}) do
+    Repo.all(from d in Device, where: d.user_id == ^user_id)
+      |> Repo.preload(:user)
+  end
+
   @doc """
   Creates a device.
 

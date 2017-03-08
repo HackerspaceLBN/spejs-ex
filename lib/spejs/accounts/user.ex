@@ -1,5 +1,5 @@
 defmodule Spejs.Accounts.User do
-  use Ecto.Schema
+  use Spejs.Web, :model
 
   def user_types, do: ~w(user virtual project)
 
@@ -8,7 +8,7 @@ defmodule Spejs.Accounts.User do
     field :nickname, :string
     field :email, :string
     field :type, :string
-    # has_many :devices, Accounts.Device
+    has_many :devices, Accounts.Device
 
     timestamps()
   end
