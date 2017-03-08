@@ -5,9 +5,13 @@ defmodule Spejs.Web.InteractionsController do
   alias Spejs.Api.Interactions
 
   def devices(conn, %{"data" => data}) do
-    case Spejs.Api.Interactions.update_devices(data) do
-      {:error, message} -> json(conn, message)
-      {status, _} -> json(conn, status)
+    try do
+      case Spejs.Api.Interactions.update_devices(data) do
+        :ok -> json(conn, :ok)
+        _ -> json(conn, :unknown)
+      end
+    rescue
+      e -> json(conn, %{status: :error, message: e})
     end
   end
 
