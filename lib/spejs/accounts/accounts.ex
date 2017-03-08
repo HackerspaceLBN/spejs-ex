@@ -145,8 +145,8 @@ defmodule Spejs.Accounts do
     Repo.get_by(Device, mac: mac)
   end
 
-  def get_device_by(%{flag: data_flag}) do
-    Repo.all(Device, flag: data_flag)
+  def list_devices_by(%{flag: flag}) do
+    Repo.all(from d in Device, where: d.flag == ^flag)
       |> Repo.preload(:user)
   end
 
@@ -213,6 +213,10 @@ defmodule Spejs.Accounts do
   """
   def change_device(%Device{} = device) do
     device_changeset(device, %{})
+  end
+  def change_device(%Device{} = device, attrs) do
+      device
+      |> device_changeset(attrs)
   end
 
   defp device_changeset(%Device{} = device, attrs) do

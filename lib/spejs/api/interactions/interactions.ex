@@ -3,8 +3,7 @@ defmodule Spejs.Api.Interactions do
   alias Spejs.Accounts.Device
 
   def at_hackerspace do
-    devices = Accounts.list_devices
-      |> Enum.filter(fn(device) -> device.flag == 2 end)
+    devices = Accounts.list_devices_by(%{flag: 2})
 
     %{
       guests: Enum.filter(devices, fn(device) -> is_nil(device.user_id) end)
@@ -22,8 +21,9 @@ defmodule Spejs.Api.Interactions do
 
   defp process_devices(devices) do
     devices
-      |> Enum.map(&(update_params(&1)))
-      |> Enum.map(&(process_device(&1)))
+      |> Enum.map(&update_params/1)
+      |> Enum.map(&process_device/1)
+      |> Enum.filter(fn(device) -> not is_nil(device) end)
   end
 
   defp update_params(params) when params != %{} do
@@ -37,20 +37,18 @@ defmodule Spejs.Api.Interactions do
       nil ->
         case Accounts.create_device(device_data) do
           {:ok, device} -> device
-          {:error, _} -> %Device{}
+          {:error, _} -> nil
         end
       device ->
         if device.flag !== device_data.flag do
           case Accounts.update_device(device, device_data) do
             {:ok, device} -> device
-            {:error, _} -> %Device{}
+            {:error, _} -> nil
           end
         end
-        
-        device
     end
   end
-  defp process_device(_device_data), do: %Device{}
+  defp process_device(_), do: nil
 
   def map_keys_to_atoms(map) do
     for {key, val} <- map, into: %{}, do: {String.to_atom(key), val}
