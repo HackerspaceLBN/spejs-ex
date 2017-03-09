@@ -8,7 +8,7 @@ defmodule Spejs.Web.InteractionsController do
       case Spejs.Api.Interactions.update_devices(data) do
         %{errors: errors, updates: updates} ->
           json(conn, %{status: :completed, updates: Enum.count(updates), errors: Enum.count(errors)})
-        other ->
+        _ ->
           json(conn, :unknown)
       end
     rescue

@@ -1,6 +1,5 @@
 defmodule Spejs.Api.Interactions do
   alias Spejs.Accounts
-  alias Spejs.Accounts.Device
 
   def at_hackerspace do
     devices = Accounts.list_devices_by(%{flag: 2})
