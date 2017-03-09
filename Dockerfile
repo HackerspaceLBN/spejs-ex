@@ -2,7 +2,7 @@ FROM elixir:1.4-slim
 
 RUN apt-get update -q && \
     apt-get -y install \
-    curl libpq-dev inotify-tools build-essential \
+    curl libpq-dev inotify-tools build-essential git apt-utils \
     && apt-get clean -y && \
     rm -rf /var/cache/apt/*
 
