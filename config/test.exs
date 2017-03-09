@@ -12,10 +12,10 @@ config :logger, level: :warn
 # Configure your database
 config :spejs, Spejs.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("PGUSER"),
+  password: System.get_env("PGPASSWORD"),
   database: "spejs_test",
-  hostname: "db",
+  hostname: System.get_env("PGHOST"),
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :sentry,
