@@ -6,11 +6,15 @@ defmodule Spejs.Web.InteractionsController do
   def devices(conn, %{"data" => data}) do
     try do
       case Spejs.Api.Interactions.update_devices(data) do
-        :ok -> json(conn, :ok)
-        _ -> json(conn, :unknown)
+        %{errors: errors, updates: updates} ->
+          json(conn, %{status: :completed, updates: Enum.count(updates), errors: Enum.count(errors)})
+        other ->
+          json(conn, :unknown)
       end
     rescue
-      e -> json(conn, %{status: :error, message: e})
+      exception ->
+        Sentry.capture_exception(exception, [stacktrace: System.stacktrace()])
+        json(conn, %{status: :failure, message: exception})
     end
   end
 

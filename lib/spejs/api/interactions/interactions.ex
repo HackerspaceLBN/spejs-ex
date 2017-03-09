@@ -28,33 +28,33 @@ defmodule Spejs.Api.Interactions do
     with devices <- Accounts.list_devices_by(%{mac_list: Enum.map(params, & &1.mac)}),
       device_mac_list <- Enum.map(devices, & &1.mac),
       update_params <- Enum.filter(params, fn(p) ->     p.mac in device_mac_list end),
-      create_params <- Enum.filter(params, fn(p) -> not p.mac in device_mac_list end),
-      do: Stream.concat(
-        update_stream(devices, update_params) ,
-        insert_stream(create_params)
-      ) |> Stream.run()
+      create_params <- Enum.filter(params, fn(p) -> not p.mac in device_mac_list end)
+      do
+        result = update_stream(devices, update_params) ++ insert_stream(create_params)
+
+        %{
+          updates: Enum.filter(result, fn({status, _}) -> status == :ok end),
+          errors: Enum.filter(result, fn({status, _}) -> status != :ok end)
+        }
+      end
   end
 
   defp update_stream(devices, update_params) do
-    Stream.map(devices, fn(device) ->
-      [changes | _] = Enum.filter(update_params, fn(param) -> param.mac == device.mac end)
-      if changes.flag != device.flag do
-        Accounts.change_device(device, changes)
-      end
+    # TODO: make it bulk changes like Repo.update_all compatible
+    Enum.map(devices, fn(device) ->
+      changes = Enum.find(update_params, fn(param) -> param.mac == device.mac end)
+      if changes.flag != device.flag, do: Accounts.update_device(device, changes)
     end)
-      |> Stream.filter(&(not is_nil(&1)))
-      |> Stream.each(& Spejs.Repo.update(&1))
+      |> Enum.filter(&(not is_nil(&1)))
   end
 
   defp insert_stream(device_params) do
-    Stream.map(device_params, fn(changes) ->
-      Accounts.change_device(%Device{}, changes)
-    end)
-      |> Stream.filter(&(not is_nil(&1)))
-      |> Stream.each(& Spejs.Repo.insert(&1))
+    # TODO: make it bulk changes Repo.insert_all compatible
+    Enum.map(device_params, & Accounts.create_device(&1))
   end
 
   defp update_params(params) do
+    # TODO: filter out params without necessary keys
     with device_params <- atomize_shallow(params),
       do: %{device_params | flag: parse_integer(device_params.flag)}
   end

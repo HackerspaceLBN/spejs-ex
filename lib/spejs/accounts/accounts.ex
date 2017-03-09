@@ -224,10 +224,6 @@ defmodule Spejs.Accounts do
   def change_device(%Device{} = device) do
     device_changeset(device, %{})
   end
-  def change_device(%Device{} = device, attrs) do
-      device
-      |> device_changeset(attrs)
-  end
 
   defp device_changeset(%Device{} = device, attrs) do
     device
