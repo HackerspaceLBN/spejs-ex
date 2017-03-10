@@ -87,7 +87,7 @@ defmodule Spejs.Coherence.ViewHelpers do
 
   def coherence_links(conn, :layout, opts) do
     list_tag      = Keyword.get opts, :list_tag, :li
-    signout_class = Keyword.get opts, :signout_class, "navbar-link"
+    signout_class = Keyword.get opts, :signout_class, "navbar-text"
     signin        = Keyword.get opts, :signin, @signin_link
     signout       = Keyword.get opts, :signout, @signout_link
     register      = Keyword.get opts, :register, @register_link
