@@ -20,7 +20,7 @@ defmodule Spejs.Web.UserController do
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: user_path(conn, :show, user))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, types: Spejs.Accounts.User.user_types())
     end
   end
 
@@ -46,7 +46,7 @@ defmodule Spejs.Web.UserController do
         |> put_flash(:info, "User updated successfully.")
         |> redirect(to: user_path(conn, :show, user))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", user: user, changeset: changeset)
+        render(conn, "edit.html", user: user, changeset: changeset, types: Spejs.Accounts.User.user_types())
     end
   end
 

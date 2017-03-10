@@ -1,3 +1,5 @@
+<%= link "New Device", to: device_path(@conn, :new), class: "btn btn-primary pull-right" %>
+
 <h2>Listing Devices</h2>
 
 <table class="table">
@@ -31,4 +33,4 @@
   </tbody>
 </table>
 
-<span><%= link "New Device", to: device_path(@conn, :new) %></span>
+<%= link "New Device", to: device_path(@conn, :new), class: "btn btn-primary pull-right" %>

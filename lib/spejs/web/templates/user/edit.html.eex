@@ -2,6 +2,8 @@
 
 <%= render "form.html", changeset: @changeset,
                         action: user_path(@conn, :update, @user),
-                        types: @types %>
+                        types: @types,
+                        password_editable: @user == @current_user,
+                        current_user: @current_user %>
 
-<span><%= link "Back", to: user_path(@conn, :index) %></span>
+<span><%= link "Back", to: user_path(@conn, :index), class: "btn btn-default" %></span>

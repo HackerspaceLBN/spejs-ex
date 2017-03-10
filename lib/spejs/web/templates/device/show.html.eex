@@ -29,5 +29,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: device_path(@conn, :edit, @device) %></span>
-<span><%= link "Back", to: device_path(@conn, :index) %></span>
+<span><%= link "Edit", to: device_path(@conn, :edit, @device), class: "btn btn-primary" %></span>
+<span><%= link "Back", to: device_path(@conn, :index), class: "btn btn-default" %></span>

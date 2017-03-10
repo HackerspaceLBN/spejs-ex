@@ -4,4 +4,4 @@
                         action: device_path(@conn, :update, @device),
                         users: @users %>
 
-<span><%= link "Back", to: device_path(@conn, :index) %></span>
+<span><%= link "Back", to: device_path(@conn, :index), class: "btn btn-default" %></span>

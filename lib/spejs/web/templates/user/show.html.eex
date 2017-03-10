@@ -19,5 +19,7 @@
 
 </ul>
 
-<span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>
-<span><%= link "Back", to: user_path(@conn, :index) %></span>
+<%= if @current_user == @user or @current_user.type == "admin" do %>
+  <span><%= link "Edit", to: user_path(@conn, :edit, @user), class: "btn btn-primary" %></span>
+<% end %>
+<span><%= link "Back", to: user_path(@conn, :index), class: "btn btn-default" %></span>
