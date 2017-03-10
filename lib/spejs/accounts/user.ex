@@ -9,7 +9,7 @@ defmodule Spejs.Accounts.User do
     field :nickname, :string
     field :email, :string
     field :type, :string
-    has_many :devices, Accounts.Device
+    # has_many :devices, Accounts.Device
 
     coherence_schema()
     timestamps()
