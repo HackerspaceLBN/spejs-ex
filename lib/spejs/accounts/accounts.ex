@@ -8,6 +8,8 @@ defmodule Spejs.Accounts do
 
   alias Spejs.Accounts.{User, Device}
 
+  use Coherence.Schema
+
   @doc """
   Returns the list of users.
 
@@ -104,8 +106,11 @@ defmodule Spejs.Accounts do
 
   defp user_changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:name, :nickname, :email, :type])
-    |> validate_required([:name, :nickname, :email, :type])
+    |> cast(attrs, [:name, :nickname, :email, :type] ++ coherence_fields())
+    |> validate_required([:name, :nickname, :email])
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
+    |> validate_coherence(attrs)
   end
 
   @doc """

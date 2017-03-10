@@ -39,6 +39,7 @@ defmodule Spejs.Web do
       import Spejs.Web.Router.Helpers
       import Spejs.Web.ErrorHelpers
       import Spejs.Web.Gettext
+      import Spejs.Coherence.ViewHelpers
     end
   end
 

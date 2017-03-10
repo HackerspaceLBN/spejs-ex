@@ -1,5 +1,6 @@
 defmodule Spejs.Accounts.User do
   use Spejs.Web, :model
+  use Coherence.Schema
 
   def user_types, do: ~w(user virtual project)
 
@@ -10,6 +11,7 @@ defmodule Spejs.Accounts.User do
     field :type, :string
     # has_many :devices, Accounts.Device
 
+    coherence_schema()
     timestamps()
   end
 end
