@@ -14,13 +14,19 @@
   <body>
     <div class="container">
       <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+        <nav role="navigation" class="navbar navbar-default">
+          <ul class="nav navbar-nav pull-left">
+            <%= if Coherence.logged_in?(@conn) do %>
+              <li><%= link("Devices", to: "/devices") %></li>
+              <li><%= link("Users", to: "/users") %></li>
+            <% else %>
+              <li><%= link("Get Started", to: "http://www.phoenixframework.org/docs") %></li>
+            <% end %>
+          </ul>
+          <ul class="nav navbar-nav pull-right">
             <%= coherence_links(@conn, :layout) %>
           </ul>
         </nav>
-        <span class="logo"></span>
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

@@ -36,10 +36,10 @@ defmodule Spejs.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
+      import Spejs.Coherence.ViewHelpers
       import Spejs.Web.Router.Helpers
       import Spejs.Web.ErrorHelpers
       import Spejs.Web.Gettext
-      import Spejs.Coherence.ViewHelpers
     end
   end
 
