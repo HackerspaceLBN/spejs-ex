@@ -1,6 +1,5 @@
 defmodule Spejs.Api.Interactions do
   alias Spejs.Accounts
-  alias Spejs.Web.Endpoint
 
   def at_hackerspace do
     devices = Accounts.list_devices_by(%{flag: 2})
@@ -32,35 +31,11 @@ defmodule Spejs.Api.Interactions do
       do
         result = update_stream(devices, update_params) ++ insert_stream(create_params)
 
-        broadcast_updates(result)
-
         %{
           updates: Enum.filter(result, fn({status, _}) -> status == :ok end),
           errors: Enum.filter(result, fn({status, _}) -> status != :ok end)
         }
       end
-  end
-
-  defp broadcast_updates(updates) do
-    payload = updates
-      |> Enum.filter(fn({status, _}) -> status == :ok end)
-      |> Enum.map(fn({_, device}) -> device end)
-      |> Enum.filter(fn(device) -> not is_nil(device.user_id) end)
-      |> Enum.map(fn(device) ->
-        data = case device.flag do
-          0 -> %{left: %{
-              nickname: device.user.nickname,
-              device: device.name
-            }}
-          2 -> %{joined: %{
-              nickname: device.user.nickname,
-              device: device.name
-            }}
-          _ -> %{}
-        end
-
-        Endpoint.broadcast "device:notifications", "notification", %{data: data}
-       end)
   end
 
   defp update_stream(devices, update_params) do
@@ -79,21 +54,7 @@ defmodule Spejs.Api.Interactions do
 
   defp update_params(params) do
     # TODO: filter out params without necessary keys
-    with device_params <- atomize_shallow(params),
-      do: %{device_params | flag: parse_integer(device_params.flag)}
-  end
-
-  def atomize_shallow(%{} = map) do
-    map
-    |> Enum.map(fn {key, value} -> {String.to_atom(key), value} end)
-    |> Enum.into(%{})
-  end
-
-  def parse_integer("0x" <> string) do
-    # Take take only integer part of parsing
-    elem(case string do
-      "0x" <> hex_string -> Integer.parse(hex_string)
-      other -> Integer.parse(other)
-    end, 0)
+    with device_params <- Spejs.Utils.atomize_shallow(params),
+      do: %{device_params | flag: Spejs.Utils.parse_integer(device_params.flag)}
   end
 end
