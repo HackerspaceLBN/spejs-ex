@@ -2,21 +2,6 @@ defmodule Spejs.Api.Interactions do
   alias Spejs.Accounts
   alias Spejs.Accounts.User
 
-  def at_hackerspace do
-    devices = Accounts.list_devices_by(%{flag: 2})
-    guests = devices
-        |> Enum.filter(fn(device) -> is_nil(device.user_id) end)
-    users = devices
-        |> Enum.filter(fn(device) -> not is_nil(device.user_id) and User.at_hackerspace?(device.user.type) end)
-        |> Enum.map(fn(device) -> device.user end)
-        |> Enum.uniq_by(fn(user) -> user.nickname end)
-
-    %{
-      guests: Enum.count(guests),
-      active: Enum.map(users, & Map.take(&1, [:nickname, :name]))
-    }
-  end
-
   def update_devices(devices) do
     devices
       |> Enum.filter(&(&1 != %{}))
