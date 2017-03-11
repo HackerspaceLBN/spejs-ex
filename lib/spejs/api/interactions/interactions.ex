@@ -1,5 +1,6 @@
 defmodule Spejs.Api.Interactions do
   alias Spejs.Accounts
+  alias Spejs.Web.Endpoint
 
   def at_hackerspace do
     devices = Accounts.list_devices_by(%{flag: 2})
@@ -31,11 +32,35 @@ defmodule Spejs.Api.Interactions do
       do
         result = update_stream(devices, update_params) ++ insert_stream(create_params)
 
+        broadcast_updates(result)
+
         %{
           updates: Enum.filter(result, fn({status, _}) -> status == :ok end),
           errors: Enum.filter(result, fn({status, _}) -> status != :ok end)
         }
       end
+  end
+
+  defp broadcast_updates(updates) do
+    payload = updates
+      |> Enum.filter(fn({status, _}) -> status == :ok end)
+      |> Enum.map(fn({_, device}) -> device end)
+      |> Enum.filter(fn(device) -> not is_nil(device.user_id) end)
+      |> Enum.map(fn(device) ->
+        data = case device.flag do
+          0 -> %{left: %{
+              nickname: device.user.nickname,
+              device: device.name
+            }}
+          2 -> %{joined: %{
+              nickname: device.user.nickname,
+              device: device.name
+            }}
+          _ -> %{}
+        end
+
+        Endpoint.broadcast "device:notifications", "notification", %{data: data}
+       end)
   end
 
   defp update_stream(devices, update_params) do

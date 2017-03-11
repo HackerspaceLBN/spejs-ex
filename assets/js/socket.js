@@ -54,9 +54,25 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("device:notifications", {})
+let container = document.querySelector("#device-info")
+
+channel.on("notification", payload => {
+  console.log("notification", payload);
+
+  channel.push("ack", payload)
+    .receive("ok", resp => {
+      console.log("ack", resp)
+    })
+})
+
 channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+  .receive("ok", resp => {
+    console.log("Joined successfully", resp)
+  })
+  .receive("error", resp => {
+    console.log("Unable to join", resp)
+  })
+
 
 export default socket

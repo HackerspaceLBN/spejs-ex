@@ -4,6 +4,7 @@ defmodule Spejs.Web.UserSocket do
   ## Channels
   # channel "room:*", Spejs.Web.RoomChannel
 
+  channel "device:*", Spejs.Web.Channel.DeviceChannel
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket,
     timeout: 45_000
@@ -20,7 +21,7 @@ defmodule Spejs.Web.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
+  def connect(params, socket) do
     {:ok, socket}
   end
 
