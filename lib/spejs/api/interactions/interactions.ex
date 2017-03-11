@@ -1,12 +1,13 @@
 defmodule Spejs.Api.Interactions do
   alias Spejs.Accounts
+  alias Spejs.Accounts.User
 
   def at_hackerspace do
     devices = Accounts.list_devices_by(%{flag: 2})
     guests = devices
         |> Enum.filter(fn(device) -> is_nil(device.user_id) end)
     users = devices
-        |> Enum.filter(fn(device) -> not is_nil(device.user_id) and device.user.type == "user" end)
+        |> Enum.filter(fn(device) -> not is_nil(device.user_id) and User.at_hackerspace?(device.user.type) end)
         |> Enum.map(fn(device) -> device.user end)
         |> Enum.uniq_by(fn(user) -> user.nickname end)
 
@@ -30,6 +31,8 @@ defmodule Spejs.Api.Interactions do
       create_params <- Enum.filter(params, fn(p) -> not p.mac in device_mac_list end)
       do
         result = update_stream(devices, update_params) ++ insert_stream(create_params)
+
+        result |> Enum.each(&Spejs.Api.Notifications.device_flag_changed/1)
 
         %{
           updates: Enum.filter(result, fn({status, _}) -> status == :ok end),
