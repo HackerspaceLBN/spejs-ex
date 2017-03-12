@@ -165,7 +165,7 @@ defmodule Spejs.Accounts do
       |> Repo.preload(:user)
   end
 
-  def list_devices_by(_), do: list_devices
+  def list_devices_by(_), do: list_devices()
 
   @doc """
   Creates a device.

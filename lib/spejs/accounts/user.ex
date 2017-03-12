@@ -3,6 +3,7 @@ defmodule Spejs.Accounts.User do
   use Coherence.Schema
 
   def user_types, do: ~w(user virtual project)
+  def public_types, do: ~w(user)
 
   schema "accounts_users" do
     field :name, :string

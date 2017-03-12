@@ -1,6 +1,8 @@
 defmodule Spejs.Api.Interactions do
   alias Spejs.Accounts
   alias Spejs.Accounts.User
+  alias Spejs.Api.Notifications
+  alias Spejs.Utils
 
   def update_devices(devices) do
     devices
@@ -17,7 +19,7 @@ defmodule Spejs.Api.Interactions do
       do
         result = update_stream(devices, update_params) ++ insert_stream(create_params)
 
-        result |> Enum.each(&Spejs.Api.Notifications.device_flag_changed/1)
+        result |> Enum.each(&Notifications.device_flag_changed/1)
 
         %{
           updates: Enum.filter(result, fn({status, _}) -> status == :ok end),
@@ -42,7 +44,7 @@ defmodule Spejs.Api.Interactions do
 
   defp update_params(params) do
     # TODO: filter out params without necessary keys
-    with device_params <- Spejs.Utils.atomize_shallow(params),
-      do: %{device_params | flag: Spejs.Utils.parse_integer(device_params.flag)}
+    with device_params <- Utils.atomize_shallow(params),
+      do: %{device_params | flag: Utils.parse_integer(device_params.flag)}
   end
 end
