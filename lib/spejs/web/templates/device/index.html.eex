@@ -16,7 +16,7 @@
   </thead>
   <tbody>
 <%= for device <- @devices do %>
-    <tr>
+    <tr id="<%= device.name %>">
       <td><%= device.name || "" %></td>
       <td><%= device.mac || "" %></td>
       <td><%= device.ip || "" %></td>

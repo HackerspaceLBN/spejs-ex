@@ -52,26 +52,46 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 // from connect if you don't care about authentication.
 
 socket.connect()
-
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("device:notifications", {})
-let container = document.querySelector("#device-info")
+let device_channel = socket.channel("device:notification", {token: window.userToken})
+let user_channel = socket.channel("user:notification", {token: window.userToken})
 
-channel.on("notification", payload => {
-  console.log("notification", payload);
-
-  channel.push("ack", payload)
-    .receive("ok", resp => {
-      console.log("ack", resp)
-    })
+device_channel.on("device:connected", payload => {
+  $('[id=' + payload.connected + ']')
+    .animate({backgroundColor: "green"})
+    .animate({backgroundColor: "none"})
+  console.log("device:connected", payload);
 })
 
-channel.join()
+device_channel.on("device:disconnected", payload => {
+  $('[id=' + payload.disconnected + ']')
+    .animate({backgroundColor: "red"})
+    .animate({backgroundColor: "none"})
+  console.log("device:disconnected", payload);
+})
+
+device_channel.on("user:joined", payload => {
+  console.log("user:joined", payload);
+})
+
+device_channel.on("user:left", payload => {
+  console.log("user:left", payload);
+})
+
+device_channel.join()
   .receive("ok", resp => {
-    console.log("Joined successfully", resp)
+    console.log("device:internal Joined successfully", resp)
   })
   .receive("error", resp => {
-    console.log("Unable to join", resp)
+    console.log("device:internal Unable to join", resp)
+  })
+
+user_channel.join()
+  .receive("ok", resp => {
+    console.log("user:notification Joined successfully", resp)
+  })
+  .receive("error", resp => {
+    console.log("user:notification Unable to join", resp)
   })
 
 

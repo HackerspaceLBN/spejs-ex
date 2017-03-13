@@ -24,11 +24,16 @@ defmodule Spejs.Api.Notifications do
     user_data = %{nickname: device.user.nickname, device: device.name}
     # TODO : need check if user is already at hackerspace
     if at_hackerspace?(device) do
-      broadcast_payload(case device.flag &&& 2 do
+      broadcast_user(case device.flag &&& 2 do
         2 -> %{joined: user_data}
         0 -> %{left: user_data}
       end)
     end
+
+    broadcast_device(case device.flag &&& 2 do
+      2 -> %{connected: device.name}
+      0 -> %{disconnected: device.name}
+    end)
 
     result
   end
@@ -38,7 +43,29 @@ defmodule Spejs.Api.Notifications do
   def at_hackerspace?(%User{type: type}), do: Enum.member?(User.public_types, type)
   def at_hackerspace?(_), do: false
 
-  defp broadcast_payload(payoad) do
-    Endpoint.broadcast "device:notifications", "notification", %{data: payoad}
+  defp broadcast_device(%{connected: _} = payload) do
+    IO.inspect payload, label: "==== broadcast_device connected"
+    Endpoint.broadcast "device:notification", "device:connected", payload
+  end
+
+  defp broadcast_device(%{disconnected: _} = payload) do
+    IO.inspect payload, label: "==== broadcast_device disconnected"
+    Endpoint.broadcast "device:notification", "device:disconnected", payload
+  end
+  defp broadcast_device(payload) do
+    IO.inspect payload, label: "==== broadcast_device"
+  end
+
+  defp broadcast_user(%{joined: _} = payload) do
+    IO.inspect payload, label: "==== broadcast_user joined"
+    Endpoint.broadcast "user:notification", "user:joined", payload
+  end
+
+  defp broadcast_user(%{left: _} = payload) do
+    IO.inspect payload, label: "==== broadcast_user left"
+    Endpoint.broadcast "user:notification", "user:left", payload
+  end
+  defp broadcast_user(payload) do
+    IO.inspect payload, label: "==== broadcast_user other"
   end
 end

@@ -5,6 +5,7 @@ defmodule Spejs.Web.UserSocket do
   # channel "room:*", Spejs.Web.RoomChannel
 
   channel "device:*", Spejs.Web.Channel.DeviceChannel
+  channel "user:*", Spejs.Web.Channel.UserChannel
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket,
     timeout: 45_000
