@@ -1,6 +1,5 @@
 defmodule Spejs.Api.Interactions do
   alias Spejs.Accounts
-  alias Spejs.Accounts.User
   alias Spejs.Api.Notifications
   alias Spejs.Utils
 

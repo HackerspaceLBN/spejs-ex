@@ -1,7 +1,7 @@
 defmodule Spejs.Web.InteractionsController do
   use Spejs.Web, :controller
 
-  alias Spejs.Api.{Interactions, Notifications}
+  alias Spejs.Api.Notifications
 
   def devices(conn, %{"data" => data}) do
     try do
