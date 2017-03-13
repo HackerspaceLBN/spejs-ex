@@ -40,7 +40,7 @@ defmodule Spejs.Mixfile do
      {:cowboy, "~> 1.0"},
      {:sentry, "~> 3.0.0"},
      {:json, "~> 1.0"},
-     {:coherence, git: "https://github.com/vircung/coherence.git", branch: "phx-1.3"}]
+     {:coherence, git: "https://github.com/smpallen99/coherence.git", branch: "phx-1.3"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
