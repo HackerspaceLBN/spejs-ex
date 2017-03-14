@@ -9,24 +9,19 @@ RUN apt-get update -q && \
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash && \
     apt-get install -y nodejs
 
-RUN mix local.hex --force && \
-    mix local.rebar --force && \
-    mix hex.info
-
-RUN mix archive.install --force \
-  https://github.com/phoenixframework/archives/raw/master/phx_new.ez
-
 WORKDIR /application
 
 COPY mix.* /application/
-RUN mix deps.get
-
+RUN mix local.hex --force && \
+    mix local.rebar --force && \
+    mix hex.info && \
+    mix deps.get && \
+    mix deps.compile
 
 COPY assets/package.json /application/assets/package.json
 RUN cd assets && \
     npm install --loglevel error && \
-    cd .. && \
-    mix deps.compile
+    cd ..
 
 WORKDIR /application
 ADD . /application
