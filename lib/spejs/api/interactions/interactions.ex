@@ -11,7 +11,7 @@ defmodule Spejs.Api.Interactions do
   end
 
   defp process(params) do
-    with {:ok, devices, update_params, crete_params} <- prepare_prcess(params) do
+    with {:ok, devices, update_params, create_params} <- prepare_process(params) do
         result = update_stream(devices, update_params) ++ insert_stream(create_params)
 
         result |> Enum.each(&Notifications.device_flag_changed/1)
@@ -24,7 +24,6 @@ defmodule Spejs.Api.Interactions do
   end
 
   defp prepare_process(params) do
-    with
     devices = Accounts.list_devices_by(%{mac_list: Enum.map(params, & &1.mac)})
     device_mac_list = Enum.map(devices, & &1.mac)
     update_params = Enum.filter(params, fn(p) ->     p.mac in device_mac_list end)

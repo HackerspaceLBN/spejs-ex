@@ -4,7 +4,7 @@ defmodule Spejs.Web.Channel.DeviceChannel do
   def join("device:notification", %{"token" => token}, socket) do
     case Phoenix.Token.verify(socket, "user_token", token,
                               max_age: 10_000) do
-      {:error, reason} -> {:error, %{reason: "unauthorized"}}
+      {:error, reason} -> {:error, %{reason: reason}}
       {:ok, _} -> {:ok, socket}
     end
   end
@@ -14,22 +14,18 @@ defmodule Spejs.Web.Channel.DeviceChannel do
   end
 
   def handle_out("device:connected", params, socket) do
-    IO.inspect params, label: "======= params device:connected"
     {:noreply, socket}
   end
 
   def handle_out("device:disconnected", params, socket) do
-    IO.inspect params, label: "======= params device:disconnected"
     {:noreply, socket}
   end
 
   def handle_in("device:connected", params, socket) do
-    IO.inspect params, label: "======= params device:connected"
     {:noreply, socket}
   end
 
   def handle_in("device:disconnected", params, socket) do
-    IO.inspect params, label: "======= params device:disconnected"
     {:noreply, socket}
   end
 end

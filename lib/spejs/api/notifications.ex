@@ -44,28 +44,20 @@ defmodule Spejs.Api.Notifications do
   def at_hackerspace?(_), do: false
 
   defp broadcast_device(%{connected: _} = payload) do
-    IO.inspect payload, label: "==== broadcast_device connected"
     Endpoint.broadcast "device:notification", "device:connected", payload
   end
 
   defp broadcast_device(%{disconnected: _} = payload) do
-    IO.inspect payload, label: "==== broadcast_device disconnected"
     Endpoint.broadcast "device:notification", "device:disconnected", payload
   end
-  defp broadcast_device(payload) do
-    IO.inspect payload, label: "==== broadcast_device"
-  end
+  defp broadcast_device(_payload), do: nil
 
   defp broadcast_user(%{joined: _} = payload) do
-    IO.inspect payload, label: "==== broadcast_user joined"
     Endpoint.broadcast "user:notification", "user:joined", payload
   end
 
   defp broadcast_user(%{left: _} = payload) do
-    IO.inspect payload, label: "==== broadcast_user left"
     Endpoint.broadcast "user:notification", "user:left", payload
   end
-  defp broadcast_user(payload) do
-    IO.inspect payload, label: "==== broadcast_user other"
-  end
+  defp broadcast_user(_payload), do: nil
 end
