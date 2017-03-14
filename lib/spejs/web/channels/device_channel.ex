@@ -3,7 +3,7 @@ defmodule Spejs.Web.Channel.DeviceChannel do
 
   def join("device:notification", %{"token" => token}, socket) do
     case Phoenix.Token.verify(socket, "user_token", token,
-                              max_age: 10000) do
+                              max_age: 10_000) do
       {:error, reason} -> {:error, %{reason: "unauthorized"}}
       {:ok, _} -> {:ok, socket}
     end

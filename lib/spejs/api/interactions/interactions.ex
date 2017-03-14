@@ -11,11 +11,7 @@ defmodule Spejs.Api.Interactions do
   end
 
   defp process(params) do
-    with devices <- Accounts.list_devices_by(%{mac_list: Enum.map(params, & &1.mac)}),
-      device_mac_list <- Enum.map(devices, & &1.mac),
-      update_params <- Enum.filter(params, fn(p) ->     p.mac in device_mac_list end),
-      create_params <- Enum.filter(params, fn(p) -> not p.mac in device_mac_list end)
-      do
+    with {:ok, devices, update_params, crete_params} <- prepare_prcess(params) do
         result = update_stream(devices, update_params) ++ insert_stream(create_params)
 
         result |> Enum.each(&Notifications.device_flag_changed/1)
@@ -27,9 +23,20 @@ defmodule Spejs.Api.Interactions do
       end
   end
 
+  defp prepare_process(params) do
+    with
+    devices = Accounts.list_devices_by(%{mac_list: Enum.map(params, & &1.mac)})
+    device_mac_list = Enum.map(devices, & &1.mac)
+    update_params = Enum.filter(params, fn(p) ->     p.mac in device_mac_list end)
+    create_params = Enum.filter(params, fn(p) -> not p.mac in device_mac_list end)
+
+    {:ok, devices, update_params, create_params}
+  end
+
   defp update_stream(devices, update_params) do
     # TODO: make it bulk changes like Repo.update_all compatible
-    Enum.map(devices, fn(device) ->
+    devices
+      |> Enum.map(fn(device) ->
       changes = Enum.find(update_params, fn(param) -> param.mac == device.mac end)
       if changes.flag != device.flag, do: Accounts.update_device(device, changes)
     end)
