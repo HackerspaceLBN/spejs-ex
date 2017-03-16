@@ -19,6 +19,7 @@
           <ul class="nav navbar-nav pull-left">
             <%= if Coherence.logged_in?(@conn) do %>
               <li><%= link("Devices", to: "/devices") %></li>
+              <li><%= link("Networks", to: "/networks") %></li>
               <li><%= link("Users", to: "/users") %></li>
             <% else %>
               <li><%= link("Get Started", to: "http://www.phoenixframework.org/docs") %></li>

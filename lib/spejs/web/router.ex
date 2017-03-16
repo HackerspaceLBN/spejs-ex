@@ -54,6 +54,7 @@ defmodule Spejs.Web.Router do
     # add protected resources below
     resources "/users", UserController
     resources "/devices", DeviceController
+    resources "/networks", NetworkController
   end
 
 

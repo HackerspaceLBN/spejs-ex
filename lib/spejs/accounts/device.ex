@@ -8,6 +8,7 @@ defmodule Spejs.Accounts.Device do
     field :flag, :integer
 
     belongs_to :user, Spejs.Accounts.User
+    belongs_to :network, Spejs.Accounts.Network
 
     timestamps()
   end

@@ -1,0 +1,6 @@
+<h2>Edit Network</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: network_path(@conn, :update, @network) %>
+
+<span><%= link "Back", to: network_path(@conn, :index) %></span>

@@ -18,6 +18,12 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :network_id, class: "control-label" %>
+    <%= select f, :network_id, @networks, class: "form-control", prompt: "Choose network" %>
+    <%= error_tag f, :network_id %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :ip, class: "control-label" %>
     <%= text_input f, :ip, class: "form-control", readonly: :readonly, disabled: :disabled %>
     <%= error_tag f, :ip %>

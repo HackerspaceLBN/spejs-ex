@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Identifier</th>
       <th>IP</th>
+      <th>Network</th>
       <th>Active</th>
       <th>User</th>
 
@@ -20,6 +21,7 @@
       <td><%= device.name || "" %></td>
       <td><%= device.mac || "" %></td>
       <td><%= device.ip || "" %></td>
+      <td><%= if device.network do device.network.name end%></td>
       <td><%= device.flag || ""%></td>
       <td><%= if device.user do device.user.name end%></td>
 

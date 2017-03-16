@@ -23,6 +23,11 @@
   </li>
 
   <li>
+    <strong>Network:</strong>
+    <%= if @device.network do @device.network.name end %>
+  </li>
+
+  <li>
     <strong>User:</strong>
     <%= if @device.user do @device.user.name end %>
   </li>

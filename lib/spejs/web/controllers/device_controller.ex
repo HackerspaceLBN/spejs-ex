@@ -8,14 +8,20 @@ defmodule Spejs.Web.DeviceController do
       |> Enum.map(&{&1.name, &1.id})
   end
 
+  defp network_select do
+    Spejs.Accounts.list_networks
+      |> Enum.map(&{&1.name, &1.id})
+  end
+
   def index(conn, _params) do
     devices = Accounts.list_devices()
+      |> Accounts.preload(:network)
     render(conn, "index.html", devices: devices)
   end
 
   def new(conn, _params) do
     changeset = Accounts.change_device(%Spejs.Accounts.Device{})
-    render(conn, "new.html", changeset: changeset, users: users_select())
+    render(conn, "new.html", changeset: changeset, users: users_select(), networks: network_select())
   end
 
   def create(conn, %{"device" => device_params}) do
@@ -31,13 +37,15 @@ defmodule Spejs.Web.DeviceController do
 
   def show(conn, %{"id" => id}) do
     device = Accounts.get_device!(id)
+      |> Accounts.preload(:network)
     render(conn, "show.html", device: device)
   end
 
   def edit(conn, %{"id" => id}) do
     device = Accounts.get_device!(id)
+      |> Accounts.preload(:network)
     changeset = Accounts.change_device(device)
-    render(conn, "edit.html", device: device, changeset: changeset, users: users_select())
+    render(conn, "edit.html", device: device, changeset: changeset, users: users_select(), networks: network_select())
   end
 
   def update(conn, %{"id" => id, "device" => device_params}) do

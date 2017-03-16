@@ -1,0 +1,23 @@
+<h2>Show Network</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @network.name %>
+  </li>
+
+  <li>
+    <strong>Mask:</strong>
+    <%= @network.mask %>
+  </li>
+
+  <li>
+    <strong>Address:</strong>
+    <%= @network.address %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: network_path(@conn, :edit, @network) %></span>
+<span><%= link "Back", to: network_path(@conn, :index) %></span>

@@ -1,0 +1,32 @@
+<%= link "New Network", to: network_path(@conn, :new), class: "btn btn-primary pull-right" %>
+
+<h2>Listing Networks</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Mask</th>
+      <th>Address</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for network <- @networks do %>
+    <tr>
+      <td><%= network.name %></td>
+      <td><%= network.mask %></td>
+      <td><%= network.address %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: network_path(@conn, :show, network), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: network_path(@conn, :edit, network), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: network_path(@conn, :delete, network), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New Network", to: network_path(@conn, :new), class: "btn btn-primary pull-right" %>
