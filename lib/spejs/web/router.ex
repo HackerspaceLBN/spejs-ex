@@ -60,7 +60,9 @@ defmodule Spejs.Web.Router do
   # Other scopes may use custom stacks.
   scope "/api", Spejs.Web do
     pipe_through :api
+    get "/", InteractionsController, :index
     post "/interactions/devices", InteractionsController, :devices
+    post "/interactions/sensors", InteractionsController, :sensors
     get "/at_hackerspace", InteractionsController, :at_hackerspace
   end
 
