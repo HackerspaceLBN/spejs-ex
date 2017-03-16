@@ -21,9 +21,9 @@ defmodule Spejs.Api.Notifications do
   end
 
   def device_flag_changed({:ok, %Device{} = device} = result) do
-    user_data = %{nickname: device.user.nickname, device: device.name}
     # TODO : need check if user is already at hackerspace
     if at_hackerspace?(device) do
+      user_data = %{nickname: device.user.nickname, device: device.name}
       broadcast_user(case device.flag &&& 2 do
         2 -> %{joined: user_data}
         0 -> %{left: user_data}
