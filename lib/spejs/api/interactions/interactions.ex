@@ -18,7 +18,7 @@ defmodule Spejs.Api.Interactions do
 
         %{
           updates: Enum.filter(result, fn({status, _}) -> status == :ok end),
-          errors: Enum.filter(result, fn({status, _}) -> status != :ok end)
+          errors: Enum.filter(result, fn({status, _}) -> status == :error end)
         }
       end
   end
@@ -36,8 +36,15 @@ defmodule Spejs.Api.Interactions do
     # TODO: make it bulk changes like Repo.update_all compatible
     devices
       |> Enum.map(fn(device) ->
-      changes = Enum.find(update_params, fn(param) -> param.mac == device.mac end)
-      if changes.flag != device.flag, do: Accounts.update_device(device, changes)
+      changes = Enum.find(update_params, fn(param) ->
+        param.mac == device.mac
+      end)
+
+      if changes.flag != device.flag do
+        Accounts.update_device(device, changes)
+      else
+        {:idle, device}
+      end
     end)
       |> Enum.filter(&(not is_nil(&1)))
   end

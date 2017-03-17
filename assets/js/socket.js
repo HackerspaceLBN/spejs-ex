@@ -57,17 +57,45 @@ let device_channel = socket.channel("device:notification", {token: window.userTo
 let user_channel = socket.channel("user:notification", {token: window.userToken})
 
 device_channel.on("device:connected", payload => {
-  $('[id=' + payload.connected + ']')
-    .animate({backgroundColor: "green"})
-    .animate({backgroundColor: "none"})
   console.log("device:connected", payload);
+
+  let row = $("tr:contains('" + payload.connected.name + "')")
+  let firstRow = row.parents("tbody").find("tr:first")
+
+  row.find(".ip").text(payload.connected.ip)
+  row.find(".flag").text(payload.connected.flag)
+
+  row.animate({backgroundColor: "green"}, "fast")
+     .insertBefore(firstRow)
+     .animate({backgroundColor: "none"}, "slow")
 })
 
 device_channel.on("device:disconnected", payload => {
-  $('[id=' + payload.disconnected + ']')
-    .animate({backgroundColor: "red"})
-    .animate({backgroundColor: "none"})
   console.log("device:disconnected", payload);
+
+  let row = $("tr:contains('" + payload.disconnected.name + "')")
+  let firstRow = row.parents("tbody").find("tr:first")
+
+  row.find(".ip").text(payload.disconnected.ip)
+  row.find(".flag").text(payload.disconnected.flag)
+
+  row.animate({backgroundColor: "red"}, "fast")
+     .insertBefore(firstRow)
+     .animate({backgroundColor: "none"}, "slow")
+})
+
+device_channel.on("device:idle", payload => {
+  console.log("device:idle", payload);
+
+  let row = $("tr:contains('" + payload.idle.name + "')")
+  let firstRow = row.parents("tbody").find("tr:first")
+
+  row.find(".ip").text(payload.idle.ip)
+  row.find(".flag").text(payload.idle.flag)
+
+  row.animate({backgroundColor: "gray"}, "fast")
+     .insertBefore(firstRow)
+     .animate({backgroundColor: "none"}, "slow")
 })
 
 device_channel.on("user:joined", payload => {

@@ -1,5 +1,6 @@
 defmodule Spejs.Web.Channel.DeviceChannel do
   use Phoenix.Channel
+  alias Spejs.Accounts.Device
 
   def join("device:notification", %{"token" => token}, socket) do
     case Phoenix.Token.verify(socket, "user_token", token,
@@ -13,19 +14,26 @@ defmodule Spejs.Web.Channel.DeviceChannel do
     {:error, %{reason: "unauthorized " <> topic}, socket}
   end
 
-  def handle_out("device:connected", params, socket) do
+  intercept ["device:connected", "device:disconnected", "device:idle"]
+
+  def handle_out("device:connected" = action, %Device{} = device, socket) do
+    push socket, action, %{
+      connected: Map.take(device, [:name, :flag, :ip])
+    }
     {:noreply, socket}
   end
 
-  def handle_out("device:disconnected", params, socket) do
+  def handle_out("device:disconnected" = action, %Device{} = device, socket) do
+    push socket, action, %{
+      disconnected: Map.take(device, [:name, :flag, :ip])
+    }
     {:noreply, socket}
   end
 
-  def handle_in("device:connected", params, socket) do
-    {:noreply, socket}
-  end
-
-  def handle_in("device:disconnected", params, socket) do
+  def handle_out("device:idle" = action, %Device{} = device, socket) do
+    push socket, action, %{
+      idle: Map.take(device, [:name, :flag, :ip])
+    }
     {:noreply, socket}
   end
 end

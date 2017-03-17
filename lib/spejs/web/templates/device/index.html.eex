@@ -18,12 +18,12 @@
   <tbody>
 <%= for device <- @devices do %>
     <tr id="<%= device.name %>">
-      <td><%= device.name || "" %></td>
-      <td><%= device.mac || "" %></td>
-      <td><%= device.ip || "" %></td>
-      <td><%= if device.network do device.network.name end%></td>
-      <td><%= device.flag || ""%></td>
-      <td><%= if device.user do device.user.name end%></td>
+      <td class="name"><%= device.name || "" %></td>
+      <td class="mac"><%= device.mac || "" %></td>
+      <td class="ip"><%= device.ip || "" %></td>
+      <td class="network"><%= if device.network do device.network.name end%></td>
+      <td class="flag"><%= device.flag || ""%></td>
+      <td class="owner"><%= if device.user do device.user.name end%></td>
 
       <td class="text-right">
         <span><%= link "Show", to: device_path(@conn, :show, device), class: "btn btn-default btn-xs" %></span>
