@@ -18,7 +18,8 @@ defmodule Spejs.Api.Interactions do
 
         %{
           updates: Enum.filter(result, fn({status, _}) -> status == :ok end),
-          errors: Enum.filter(result, fn({status, _}) -> status == :error end)
+          errors: Enum.filter(result, fn({status, _}) -> status == :error end),
+          ignores: Enum.filter(result, fn({status, _}) -> status == :idle end)
         }
       end
   end

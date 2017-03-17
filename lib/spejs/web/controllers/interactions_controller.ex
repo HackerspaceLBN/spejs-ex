@@ -32,8 +32,13 @@ defmodule Spejs.Web.InteractionsController do
   def devices(conn, %{"data" => data}) do
     try do
       case Interactions.update_devices(data) do
-        %{errors: errors, updates: updates} ->
-          json(conn, %{status: :completed, updates: Enum.count(updates), errors: Enum.count(errors)})
+        %{errors: errors, updates: updates, ignores: ignores} ->
+          json(conn, %{
+            status: :completed,
+            updates: Enum.count(updates),
+            errors: Enum.count(errors),
+            ignores: Enum.count(ignores)
+          })
         _ ->
           json(conn, :unknown)
       end
