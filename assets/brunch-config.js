@@ -3,7 +3,6 @@ exports.config = {
   files: {
     javascripts: {
       joinTo: "js/app.js"
-
       // To use a separate vendor.js bundle, specify two files path
       // https://github.com/brunch/brunch/blob/master/docs/config.md#files
       // joinTo: {
@@ -48,6 +47,9 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/vendor/]
+    },
+    coffeescript: {
+      bare: true
     }
   },
 
