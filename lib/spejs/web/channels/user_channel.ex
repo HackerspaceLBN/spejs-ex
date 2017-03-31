@@ -8,6 +8,8 @@ defmodule Spejs.Web.Channel.UserChannel do
     {:error, %{reason: "unauthorized " <> topic}, socket}
   end
 
+  intercept ["user:joined", "user:left"]
+
   def handle_out("user:joined", _, socket) do
     {:noreply, socket}
   end
