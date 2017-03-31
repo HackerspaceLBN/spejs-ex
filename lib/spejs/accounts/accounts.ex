@@ -154,20 +154,17 @@ defmodule Spejs.Accounts do
   end
 
   def list_devices_by(%{flag: flag}) do
-    Device
-      |> where([d], where: d.flag == ^flag)
+    Repo.all(from d in Device, where: d.flag == ^flag)
       |> Repo.preload(:user)
   end
 
   def list_devices_by(%{mac_list: mac_list}) do
-    Device
-      |> where([d], d.mac in ^mac_list)
+    Repo.all(from d in Device, where: d.mac in ^mac_list)
       |> Repo.preload(:user)
   end
 
   def list_devices_by(%{user_id: user_id}) do
-    Device
-      |> where([d], d.user_id == ^user_id)
+    Repo.all(from d in Device, where: d.user_id == ^user_id)
       |> Repo.preload(:user)
   end
 
