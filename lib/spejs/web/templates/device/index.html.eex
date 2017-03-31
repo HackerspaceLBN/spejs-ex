@@ -1,4 +1,7 @@
-<%= link "New Device", to: device_path(@conn, :new), class: "btn btn-primary pull-right" %>
+<div class="pull-right">
+  <%= link "New Device", to: device_path(@conn, :new), class: "btn btn-primary" %>
+  <%= button "Clear devices", to: interactions_path(@conn, :clear_devices), class: "btn btn-default" %>
+</div>
 
 <h2>Listing Devices</h2>
 

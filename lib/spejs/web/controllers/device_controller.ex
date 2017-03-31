@@ -15,6 +15,7 @@ defmodule Spejs.Web.DeviceController do
 
   def index(conn, _params) do
     devices = Accounts.list_devices()
+      |> Accounts.preload(:user)
       |> Accounts.preload(:network)
     render(conn, "index.html", devices: devices)
   end

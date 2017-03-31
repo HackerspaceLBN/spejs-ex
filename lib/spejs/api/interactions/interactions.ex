@@ -10,17 +10,20 @@ defmodule Spejs.Api.Interactions do
       |> process
   end
 
+  def filter_updates(updates) do
+    %{
+      updates: Enum.filter(updates, fn({status, _}) -> status == :ok end),
+      errors: Enum.filter(updates, fn({status, _}) -> status == :error end),
+      ignores: Enum.filter(updates, fn({status, _}) -> status == :idle end)
+    }
+  end
+
   defp process(params) do
     with {:ok, devices, update_params, create_params} <- prepare_process(params) do
         result = update_stream(devices, update_params) ++ insert_stream(create_params)
 
         result |> Enum.each(&Notifications.device_flag_changed/1)
-
-        %{
-          updates: Enum.filter(result, fn({status, _}) -> status == :ok end),
-          errors: Enum.filter(result, fn({status, _}) -> status == :error end),
-          ignores: Enum.filter(result, fn({status, _}) -> status == :idle end)
-        }
+        result |> filter_updates()
       end
   end
 

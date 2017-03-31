@@ -3,6 +3,7 @@ defmodule Spejs.Web.InteractionsController do
 
   alias Spejs.Api.Notifications
   alias Spejs.Api.Interactions
+  alias Spejs.Accounts
 
   def index(conn, _params) do
     [result | _] = Enum.take_random [
@@ -27,6 +28,16 @@ defmodule Spejs.Web.InteractionsController do
         Sentry.capture_exception(exception, [stacktrace: System.stacktrace()])
         json(conn, %{status: :failure, message: exception})
     end
+  end
+
+
+  def clear_devices(conn, _params) do
+    Accounts.list_devices
+      |> Enum.map(fn device -> Accounts.update_device device, %{flag: 0} end)
+      |> Interactions.filter_updates()
+
+    conn
+      |> redirect(to: device_path(conn, :index))
   end
 
   def devices(conn, %{"data" => data}) do

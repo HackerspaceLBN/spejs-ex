@@ -128,7 +128,6 @@ defmodule Spejs.Accounts do
   """
   def list_devices do
     Repo.all(Device)
-      |> Repo.preload(:user)
   end
 
   @doc """
