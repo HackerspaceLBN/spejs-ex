@@ -20,7 +20,7 @@ defmodule Spejs.Web.InteractionsController do
     json(conn,  result)
   end
 
-  def sensors(conn, %{"data" => data }) do
+  def sensors(conn, %{data: _}) do
     try do
       json(conn, :ok)
     rescue
@@ -40,7 +40,7 @@ defmodule Spejs.Web.InteractionsController do
       |> redirect(to: device_path(conn, :index))
   end
 
-  def devices(conn, %{"data" => data}) do
+  def devices(conn, %{data: data}) do
     try do
       case Interactions.update_devices(data) do
         %{errors: errors, updates: updates, ignores: ignores} ->
