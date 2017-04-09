@@ -1,8 +1,6 @@
 <h2>Edit Device</h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: device_path(@conn, :update, @device),
-                        users: @users,
-                        networks: @networks %>
+                        action: device_path(@conn, :update, @device) %>
 
 <span><%= link "Back", to: device_path(@conn, :index), class: "btn btn-default" %></span>
