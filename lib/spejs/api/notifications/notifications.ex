@@ -41,7 +41,7 @@ defmodule Spejs.Api.Notifications do
     broadcast_device %{idle: device}
     result
   end
-  def device_flag_changed(result), do: nil
+  def device_flag_changed(_), do: nil
 
 
   def at_hackerspace?(%Device{user: user}), do: at_hackerspace?(user)
