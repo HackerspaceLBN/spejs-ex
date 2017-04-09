@@ -23,9 +23,24 @@ defmodule Spejs.Web.ConnCase do
 
       # The default endpoint for testing
       @endpoint Spejs.Web.Endpoint
+
+      def login_user(%{conn: conn}) do
+        {:ok, user} = Spejs.Accounts.create_user(%{
+          email: "login@example.com", 
+          nickname: "current_user", 
+          name: "current user",
+          password: "current_password",
+          password_confirmation: "current_password"
+        })
+
+        {:ok, conn: Plug.Conn.assign(conn, :current_user, user), user: user}
+      end
+      
+      def login_user(%{conn: conn}, %{} = user) do
+        {:ok, conn: Plug.Conn.assign(conn, :current_user, user), user: user}
+      end
     end
   end
-
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spejs.Repo)
@@ -34,5 +49,4 @@ defmodule Spejs.Web.ConnCase do
     end
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-
 end
