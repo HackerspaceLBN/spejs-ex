@@ -60,6 +60,9 @@ defmodule Spejs.Web.InteractionsController do
     end
   end
 
+  # No parameters given, something fishy is happening
+  def devices(conn, params), do: index(conn, params)
+
   def at_hackerspace(conn, _params) do
     case Notifications.at_hackerspace |> JSON.encode do
       {:ok, response} -> json(conn, response)
