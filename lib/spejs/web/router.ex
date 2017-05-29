@@ -66,6 +66,13 @@ defmodule Spejs.Web.Router do
     post "/interactions/sensors", InteractionsController, :sensors
     post "/interactions/clear_devices", InteractionsController, :clear_devices
     get "/at_hackerspace", InteractionsController, :at_hackerspace
+
+    scope "/telecom" do
+      get "/", TelecomController, :index
+      get "/start_call", TelecomController, :start_call
+      get "/end_call", TelecomController, :end_call
+      get "/status", TelecomController, :status
+    end
   end
 
   defp put_user_token(conn, _) do
