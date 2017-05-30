@@ -69,6 +69,11 @@ defmodule Spejs.Web.Router do
 
     scope "/telecom" do
       get "/", TelecomController, :index
+      post "/start_call", TelecomController, :start_call
+      post "/end_call", TelecomController, :end_call
+
+      # Temporary GET requests
+      
       get "/start_call", TelecomController, :start_call
       get "/end_call", TelecomController, :end_call
       get "/status", TelecomController, :status
