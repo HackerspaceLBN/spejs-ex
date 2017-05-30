@@ -21,6 +21,30 @@ defmodule Spejs.Telecom do
     Repo.all(PhoneCall)
   end
 
+  def get_started_phone_call(%{source: source}) do
+    PhoneCall 
+    |> where([p], p.source == ^source)
+    |> where([p], is_nil(p.stop_at))
+    |> Repo.all
+  end
+  def get_started_phone_call(%{destination: destination}) do
+    PhoneCall 
+    |> where([p], p.destination == ^destination)
+    |> where([p], is_nil(p.stop_at))
+    |> Repo.all
+  end
+  def get_started_phone_call(%{any: number}) do
+    PhoneCall 
+    |> where([p], p.destination == ^number or p.source == ^number )
+    |> where([p], is_nil(p.stop_at))
+    |> Repo.all
+  end
+  def get_started_phone_call(_) do
+    PhoneCall 
+    |> where([p], is_nil(p.stop_at))
+    |> Repo.all
+  end
+
   @doc """
   Gets a single phone_call.
 
@@ -104,7 +128,7 @@ defmodule Spejs.Telecom do
 
   defp phone_call_changeset(%PhoneCall{} = phone_call, attrs) do
     phone_call
-    |> cast(attrs, [:source, :destination, :stop_at])
+    |> cast(attrs, [:source, :destination, :start_at, :stop_at])
     |> validate_required([:source, :destination])
   end
 end
