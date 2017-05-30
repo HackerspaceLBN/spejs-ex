@@ -36,6 +36,9 @@ defmodule Spejs.Api.Telecom do
 		phone_call = Spejs.Telecom.get_started_phone_call(%{any: number})
 		end_phone_call(phone_call, params)
 	end
+	def end_call(params) do
+		create_response(params, :end_call, :error, ["provide one of params: source, destination, number"])
+	end
 
 	# Private API
 
