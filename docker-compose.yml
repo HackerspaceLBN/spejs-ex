@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     build: .
-    command: mix phx.server
+    command: elixir --sname spejs --cookie spejs -S mix phx.server
     ports:
       - '4000:4000'
     links:
