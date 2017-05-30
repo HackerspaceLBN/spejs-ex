@@ -15,8 +15,9 @@ defmodule Spejs.Api.Telecom do
 	end
 
 	def start_call(params) do
+		{:ok, timestamp} = NaiveDateTime.from_erl(:calendar.local_time)
 		{status, result} = parse_repo_response(
-			Spejs.Telecom.create_phone_call(params)
+			Spejs.Telecom.create_phone_call(Map.put(params, "start_at", timestamp))
 			)
 
 		create_response(params, :end_call, status, result)		
