@@ -6,6 +6,7 @@ defmodule Spejs.Repo.Migrations.CreateSpejs.Telecom.PhoneCall do
       add :source, :string
       add :destination, :string
       add :stop_at, :naive_datetime
+      add :start_at, :naive_datetime
 
       timestamps()
     end
