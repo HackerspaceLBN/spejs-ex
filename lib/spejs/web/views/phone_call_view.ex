@@ -14,6 +14,7 @@ defmodule Spejs.Web.PhoneCallView do
     %{id: phone_call.id,
       source: phone_call.source,
       destination: phone_call.destination,
+      start_at: phone_call.start_at,
       stop_at: phone_call.stop_at}
   end
 end
