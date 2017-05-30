@@ -4,9 +4,9 @@ defmodule Spejs.TelecomTest do
   alias Spejs.Telecom
   alias Spejs.Telecom.PhoneCall
 
-  @create_attrs %{destination: "some destination", source: "some source", stop_at: ~N[2010-04-17 14:00:00.000000]}
-  @update_attrs %{destination: "some updated destination", source: "some updated source", stop_at: ~N[2011-05-18 15:01:01.000000]}
-  @invalid_attrs %{destination: nil, source: nil, stop_at: nil}
+  @create_attrs %{destination: "some destination", source: "some source", stop_at: ~N[2010-04-17 14:00:00.000000], start_at: ~N[2011-05-18 15:01:01.000000]}
+  @update_attrs %{destination: "some updated destination", source: "some updated source", stop_at: ~N[2011-05-18 15:01:01.000000], start_at: ~N[2011-05-18 15:01:01.000000]}
+  @invalid_attrs %{destination: nil, source: nil, stop_at: nil, start_at: nil}
 
   def fixture(:phone_call, attrs \\ @create_attrs) do
     {:ok, phone_call} = Telecom.create_phone_call(attrs)
