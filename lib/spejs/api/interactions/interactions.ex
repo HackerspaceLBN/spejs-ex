@@ -5,7 +5,7 @@ defmodule Spejs.Api.Interactions do
 
   def update_devices(devices) do
     devices
-      |> Enum.filter(&(&1 != %{}))
+      |> Enum.filter(&(&1 != %{} and Map.has_key?(&1, "mac") and String.length(&1["mac"]) > 0))
       |> Enum.map(&update_params/1)
       |> Enum.group_by(& &1.mac)
       |> Enum.map(fn {_, params} -> params |> Enum.reduce(&Map.merge(&2, &1)) end)
