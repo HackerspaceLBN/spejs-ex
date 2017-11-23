@@ -7,6 +7,8 @@ defmodule Spejs.Api.Interactions do
     devices
       |> Enum.filter(&(&1 != %{}))
       |> Enum.map(&update_params/1)
+      |> Enum.group_by(& &1.mac)
+      |> Enum.map(fn {_, params} -> params |> Enum.reduce(&Map.merge(&2, &1)) end)
       |> process
   end
 
@@ -28,7 +30,7 @@ defmodule Spejs.Api.Interactions do
   end
 
   defp prepare_process(params) do
-    devices = Accounts.list_devices_by(%{mac_list: Enum.map(params, & &1.mac)})
+    devices = Accounts.list_devices_by(%{mac_list: Enum.map(params, & &1.mac) |> Enum.uniq})
     device_mac_list = Enum.map(devices, & &1.mac)
     update_params = Enum.filter(params, fn(p) ->     p.mac in device_mac_list end)
     create_params = Enum.filter(params, fn(p) -> not p.mac in device_mac_list end)
