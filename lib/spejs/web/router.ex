@@ -25,7 +25,7 @@ defmodule Spejs.Web.Router do
   end
 
   pipeline :api do
-    plug Corsica, origins: "http://hackerspace-lbn.pl", allow_headers: ["accept", "content-type"]
+    plug Corsica, origins: "*", allow_headers: ["accept", "content-type"]
     plug :accepts, ["json"]
   end
 
@@ -73,7 +73,7 @@ defmodule Spejs.Web.Router do
       post "/end_call", TelecomController, :end_call
 
       # Temporary GET requests
-      
+
       get "/start_call", TelecomController, :start_call
       get "/end_call", TelecomController, :end_call
       get "/status", TelecomController, :status
