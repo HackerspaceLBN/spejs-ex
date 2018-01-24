@@ -92,7 +92,7 @@ defmodule SpejsWeb.Coherence.ViewHelpers do
 
   def coherence_links(conn, :layout, opts) do
     list_tag      = Keyword.get opts, :list_tag, :li
-    signout_class = Keyword.get opts, :signout_class, "navbar-form"
+    signout_class = Keyword.get opts, :signout_class, ""
     signin        = Keyword.get opts, :signin, @signin_link
     signout       = Keyword.get opts, :signout, @signout_link
     register      = Keyword.get opts, :register, @register_link
@@ -204,7 +204,7 @@ defmodule SpejsWeb.Coherence.ViewHelpers do
     if Config.user_schema.registerable? do
       link current_user.name, to: coherence_path(@helpers, :registration_path, conn, :show)
     else
-      current_user.name
+      content_tag(:div, current_user.nickname, class: 'navbar-text')
     end
   end
 end

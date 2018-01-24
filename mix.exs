@@ -4,6 +4,8 @@ defmodule Spejs.Mixfile do
   def project do
     [app: :spejs,
      version: "0.0.1",
+     revision: revision(),
+     branch: branch(),
      elixir: "~> 1.6.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
@@ -17,8 +19,10 @@ defmodule Spejs.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {Spejs.Application, []},
-     extra_applications: [:corsica, :logger]]
+    [
+      mod: {Spejs.Application, []},
+      extra_applications: [:corsica, :logger],
+      env: [revision: "#{branch()}-#{revision()}"] ]
   end
 
   # Specifies which paths to compile per environment.
@@ -56,5 +60,15 @@ defmodule Spejs.Mixfile do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
      "test": ["ecto.setup", "test"]]
+  end
+
+  defp revision do
+    {result, _exit_code} = System.cmd("git", ["rev-parse", "HEAD"])
+    String.slice(result, 0, 7)
+  end
+
+  defp branch do
+    {result, _exit_code} = System.cmd("git", ["rev-parse", "--abbrev-ref", "HEAD"])
+    result
   end
 end
