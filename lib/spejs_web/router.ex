@@ -55,7 +55,6 @@ defmodule SpejsWeb.Router do
     resources "/users", UserController
     resources "/devices", DeviceController
     resources "/networks", NetworkController
-    resources "/phone_calls", PhoneCallController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.
