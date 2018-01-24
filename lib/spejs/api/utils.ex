@@ -1,4 +1,4 @@
-defmodule Spejs.Utils do
+defmodule Spejs.Api.Utils do
   def atomize_shallow(%{} = map) do
     map
     |> Enum.map(fn {key, value} -> {String.to_atom(key), value} end)

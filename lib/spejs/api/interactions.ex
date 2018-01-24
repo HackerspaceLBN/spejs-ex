@@ -1,7 +1,7 @@
 defmodule Spejs.Api.Interactions do
   alias Spejs.Accounts
   alias Spejs.Api.Notifications
-  alias Spejs.Utils
+  alias Spejs.Api.Utils
 
   def update_devices(devices) do
     devices
