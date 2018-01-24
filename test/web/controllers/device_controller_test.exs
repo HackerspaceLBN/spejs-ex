@@ -1,5 +1,5 @@
-defmodule Spejs.Web.DeviceControllerTest do
-  use Spejs.Web.ConnCase, async: true
+defmodule SpejsWeb.DeviceControllerTest do
+  use SpejsWeb.ConnCase, async: true
 
   alias Spejs.Accounts
 
@@ -28,10 +28,10 @@ defmodule Spejs.Web.DeviceControllerTest do
 
   test "creates device and and display flash message", %{conn: conn} do
     conn = post conn, device_path(conn, :create), device: @create_attrs
-    
+
     assert %{id: id} = redirected_params(conn)
     assert redirected_to(conn) == device_path(conn, :show, id)
-    
+
     conn = get conn, device_path(conn, :show, id)
     assert get_flash(conn, :info) =~ "Device created successfully."
   end
@@ -51,7 +51,7 @@ defmodule Spejs.Web.DeviceControllerTest do
     device = fixture(:device)
     conn = put conn, device_path(conn, :update, device), device: @update_attrs
     assert redirected_to(conn) == device_path(conn, :show, device)
-    
+
     conn = get conn, device_path(conn, :show, device)
     assert get_flash(conn, :info) =~ "Device updated successfully."
   end

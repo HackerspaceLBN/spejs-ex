@@ -1,5 +1,5 @@
 defmodule Spejs.Accounts.User do
-  use Spejs.Web, :model
+  use SpejsWeb, :model
   use Coherence.Schema
 
   def user_types, do: ~w(user virtual project)

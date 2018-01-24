@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :spejs, Spejs.Web.Endpoint,
+config :spejs, SpejsWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -31,7 +31,7 @@ config :spejs, Spejs.Web.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :spejs, Spejs.Web.Endpoint,
+config :spejs, SpejsWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
@@ -54,7 +54,7 @@ config :spejs, Spejs.Repo,
   username: "postgres",
   password: "postgres",
   database: "spejs_dev",
-  hostname: "db",
+  hostname: "localhost",
   pool_size: 10
 
 config :sentry,

@@ -1,3 +1,3 @@
-defmodule Spejs.Web.LayoutViewTest do
-  use Spejs.Web.ConnCase, async: true
+defmodule SpejsWeb.LayoutViewTest do
+  use SpejsWeb.ConnCase, async: true
 end

@@ -1,5 +1,5 @@
-defmodule Spejs.Web.UserControllerTest do
-  use Spejs.Web.ConnCase
+defmodule SpejsWeb.UserControllerTest do
+  use SpejsWeb.ConnCase
 
   alias Spejs.Accounts
 

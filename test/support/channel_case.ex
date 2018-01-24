@@ -1,4 +1,4 @@
-defmodule Spejs.Web.ChannelCase do
+defmodule SpejsWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,7 +21,7 @@ defmodule Spejs.Web.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint Spejs.Web.Endpoint
+      @endpoint SpejsWeb.Endpoint
     end
   end
 

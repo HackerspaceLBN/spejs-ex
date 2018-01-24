@@ -1,5 +1,5 @@
-defmodule Spejs.Web.PageControllerTest do
-  use Spejs.Web.ConnCase
+defmodule SpejsWeb.PageControllerTest do
+  use SpejsWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

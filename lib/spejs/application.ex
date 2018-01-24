@@ -11,7 +11,7 @@ defmodule Spejs.Application do
       # Start the Ecto repository
       supervisor(Spejs.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(Spejs.Web.Endpoint, []),
+      supervisor(SpejsWeb.Endpoint, []),
       # Start your own worker by calling: Spejs.Worker.start_link(arg1, arg2, arg3)
       # worker(Spejs.Worker, [arg1, arg2, arg3]),
     ]
@@ -20,5 +20,12 @@ defmodule Spejs.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Spejs.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  # Tell Phoenix to update the endpoint configuration
+  # whenever the application is updated.
+  def config_change(changed, _new, removed) do
+    SpejsWeb.Endpoint.config_change(changed, removed)
+    :ok
   end
 end

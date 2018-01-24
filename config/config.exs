@@ -10,10 +10,10 @@ config :spejs,
   ecto_repos: [Spejs.Repo]
 
 # Configures the endpoint
-config :spejs, Spejs.Web.Endpoint,
+config :spejs, SpejsWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "Q6/7wNSkurhVh/Lw7+p5CGxVC7C26tPCHxfsxr9eB4HGmwDEzcCAIs41IjAsmYf4",
-  render_errors: [view: Spejs.Web.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: SpejsWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Spejs.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
@@ -31,7 +31,7 @@ config :sentry,
 config :coherence,
   user_schema: Spejs.Accounts.User,
   repo: Spejs.Repo,
-  module: Spejs,
+  module: SpejsWeb,
   logged_out_url: "/",
   opts: [:authenticatable]
 # %% End Coherence Configuration %%

@@ -1,5 +1,5 @@
-defmodule Spejs.Web.NetworkControllerTest do
-  use Spejs.Web.ConnCase
+defmodule SpejsWeb.NetworkControllerTest do
+  use SpejsWeb.ConnCase
 
   alias Spejs.Accounts
 

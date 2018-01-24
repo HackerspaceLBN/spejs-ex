@@ -1,7 +1,7 @@
 defmodule Spejs.Api.Notifications do
   alias Spejs.Accounts
   alias Spejs.Accounts.{User, Device}
-  alias Spejs.Web.Endpoint
+  alias SpejsWeb.Endpoint
 
   use Bitwise, only_operators: true
 

@@ -1,4 +1,4 @@
-defmodule Spejs.Web.ConnCase do
+defmodule SpejsWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,15 +19,15 @@ defmodule Spejs.Web.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      import Spejs.Web.Router.Helpers
+      import SpejsWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Spejs.Web.Endpoint
+      @endpoint SpejsWeb.Endpoint
 
       def login_user(%{conn: conn}) do
         {:ok, user} = Spejs.Accounts.create_user(%{
-          email: "login@example.com", 
-          nickname: "current_user", 
+          email: "login@example.com",
+          nickname: "current_user",
           name: "current user",
           password: "current_password",
           password_confirmation: "current_password"
@@ -35,7 +35,7 @@ defmodule Spejs.Web.ConnCase do
 
         {:ok, conn: Plug.Conn.assign(conn, :current_user, user), user: user}
       end
-      
+
       def login_user(%{conn: conn}, %{} = user) do
         {:ok, conn: Plug.Conn.assign(conn, :current_user, user), user: user}
       end

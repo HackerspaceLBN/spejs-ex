@@ -1,5 +1,5 @@
-defmodule Spejs.Web.PhoneCallControllerTest do
-  use Spejs.Web.ConnCase
+defmodule SpejsWeb.PhoneCallControllerTest do
+  use SpejsWeb.ConnCase
 
   alias Spejs.Telecom
   alias Spejs.Telecom.PhoneCall

@@ -1,5 +1,5 @@
-defmodule Spejs.Web.InteractionsControllerTest do
-  use Spejs.Web.ConnCase
+defmodule SpejsWeb.InteractionsControllerTest do
+  use SpejsWeb.ConnCase
 
   @moduletag :wip
   test "don't fail with empty update devices request", %{conn: conn}  do
@@ -11,9 +11,9 @@ defmodule Spejs.Web.InteractionsControllerTest do
   test "process update devices request with empty data", %{conn: conn} do
   	conn = post conn, interactions_path(conn, :devices), %{"data" => []}
   	assert json_response(conn, 200) == %{
-  		"status" => "completed", 
-  		"errors" => 0, 
-  		"ignores" => 0, 
+  		"status" => "completed",
+  		"errors" => 0,
+  		"ignores" => 0,
   		"updates" => 0
     }
   end
@@ -22,9 +22,9 @@ defmodule Spejs.Web.InteractionsControllerTest do
   test "process update devices request with empty device data", %{conn: conn} do
   	conn = post conn, interactions_path(conn, :devices), %{"data" => [%{}]}
   	assert json_response(conn, 200) == %{
-  		"status" => "completed", 
-  		"errors" => 0, 
-  		"ignores" => 0, 
+  		"status" => "completed",
+  		"errors" => 0,
+  		"ignores" => 0,
   		"updates" => 0
     }
   end

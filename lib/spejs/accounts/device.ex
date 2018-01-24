@@ -1,5 +1,5 @@
 defmodule Spejs.Accounts.Device do
-  use Spejs.Web, :model
+  use SpejsWeb, :model
 
   schema "accounts_devices" do
     field :name, :string
