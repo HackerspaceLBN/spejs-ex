@@ -12,6 +12,8 @@ defmodule Spejs.Application do
       supervisor(Spejs.Repo, []),
       # Start the endpoint when the application starts
       supervisor(SpejsWeb.Endpoint, []),
+      #
+      supervisor(Spejs.Api.Sensors.Storage, [])
       # Start your own worker by calling: Spejs.Worker.start_link(arg1, arg2, arg3)
       # worker(Spejs.Worker, [arg1, arg2, arg3]),
     ]

@@ -62,9 +62,12 @@ defmodule SpejsWeb.Router do
     pipe_through :api
     get "/", InteractionsController, :index
     post "/interactions/devices", InteractionsController, :devices
-    post "/interactions/sensors", InteractionsController, :sensors
     post "/interactions/clear_devices", InteractionsController, :clear_devices
     get "/at_hackerspace", InteractionsController, :at_hackerspace
+
+    post "/sensors/update", Api.SensorsController, :update
+    get "/sensors/sensor/:sensor_id", Api.SensorsController, :find_sensor
+    get "/sensors", Api.SensorsController, :all_sensors
   end
 
   defp put_user_token(conn, _) do
