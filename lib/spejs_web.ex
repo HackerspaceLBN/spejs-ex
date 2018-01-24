@@ -36,7 +36,7 @@ defmodule SpejsWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Spejs.Coherence.ViewHelpers
+      import SpejsWeb.Coherence.ViewHelpers
       import SpejsWeb.Router.Helpers
       import SpejsWeb.ErrorHelpers
       import SpejsWeb.Gettext

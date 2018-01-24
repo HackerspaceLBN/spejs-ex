@@ -1,11 +1,11 @@
-defmodule Spejs.Coherence.Web do
+defmodule SpejsWeb.Coherence do
   @moduledoc false
 
   def view do
     quote do
-
       use Phoenix.View, root: "lib/spejs_web/templates"
       # Import convenience functions from controllers
+
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
 
       # Use all HTML functionality (forms, tags, etc)
@@ -14,7 +14,27 @@ defmodule Spejs.Coherence.Web do
       import SpejsWeb.Router.Helpers
       import SpejsWeb.ErrorHelpers
       import SpejsWeb.Gettext
-      import Spejs.Coherence.ViewHelpers
+      import SpejsWeb.Coherence.ViewHelpers
+    end
+  end
+
+  def controller do
+    quote do
+      use Phoenix.Controller, except: [layout_view: 2]
+      use Coherence.Config
+      use Timex
+
+      import Ecto
+      import Ecto.Query
+      import Plug.Conn
+      import SpejsWeb.Router.Helpers
+      import SpejsWeb.Gettext
+      import Coherence.ControllerHelpers
+
+      alias Coherence.Config
+      alias Coherence.ControllerHelpers, as: Helpers
+
+      require Redirects
     end
   end
 

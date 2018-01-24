@@ -4,7 +4,7 @@ defmodule Spejs.Mixfile do
   def project do
     [app: :spejs,
      version: "0.0.1",
-     elixir: "~> 1.4",
+     elixir: "~> 1.6.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -29,19 +29,21 @@ defmodule Spejs.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:corsica, "~> 0.5"},
-     {:phoenix, github: "phoenixframework/phoenix", override: true},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.2"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.6"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"},
-     {:sentry, "~> 3.0.0"},
-     {:json, "~> 1.0"},
-     {:coherence, github: "smpallen99/coherence", branch: "phx-1.3"},
-     {:credo, "~> 0.5", only: [:dev, :test]}]
+    [
+      {:phoenix, "~> 1.3.0"},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix_ecto, "~> 3.2"},
+      {:postgrex, ">= 0.0.0"},
+      {:phoenix_html, "~> 2.10"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:gettext, "~> 0.11"},
+
+      {:corsica, "~> 1.0"},
+      {:sentry, "~> 6.0.4"},
+      {:json, "~> 1.0"},
+      {:coherence, "~> 0.5"},
+      {:credo, "~> 0.9.0-rc1", only: [:dev, :test], runtime: false}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

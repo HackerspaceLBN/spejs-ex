@@ -1,3 +1,3 @@
-defmodule Coherence.LayoutView do
-  use Spejs.Coherence.Web, :view
+defmodule SpejsWeb.Coherence.LayoutView do
+  use SpejsWeb.Coherence, :view
 end
